@@ -19,7 +19,10 @@ function App() {
   const [pos1, setPos1] = useState(0);
   const [pos2, setPos2] = useState(0);
   const [display, setDisplay] = useState(cards[0][0]);
-
+  const [curr, setCurr] = useState(0);
+  const [longest, setLongest] = useState(0);
+  const [answer, setAnswer] = useState("");
+  const [status, setStatus] = useState("");
 
 
   function Show(){
@@ -46,6 +49,28 @@ function App() {
       setDisplay(cards[nextPos][0]);
     }
   }
+
+  function handleInput(e){
+    e.preventDefault();
+    setAnswer(e.target.value);
+  }
+  function onSubmit(e){
+    e.preventDefault();
+    if (answer === cards[pos1][1]){
+      setCurr(prev =>{
+        const newCurr = curr + 1;
+        if (newCurr > longest){
+          setLongest(newCurr);
+        }
+        return newCurr;
+      });
+      setStatus("correct");
+    }
+    else {
+      setCurr(0);
+      setStatus("incorrect");
+    }
+  }
   
   return (
     <>
@@ -54,10 +79,24 @@ function App() {
       <h1>NBA Trivia</h1>
       <h3>Let's test your basketball knowledge</h3>
       <p>Number of Cards: 10</p>
+      <div className='streak'>
+        <p>Current Streak: {curr} </p>
+        <p>Longest Streak: {longest} </p>
+      </div>
     </div>
     <div className='content'>
       <div className='display' onClick={Show}>
         {display}
+      </div>
+      <div className='answer'>
+      <label htmlFor="answer">Guess the answer here: </label>
+        <input type="text" 
+        placeholder='Place your answer here' 
+        id='answer' 
+        onChange={handleInput}
+        className={`answerInput ${status}`}
+        />
+        <button onClick={onSubmit}>Submit Guess</button>
       </div>
       <div>
       <button onClick={handleClickBackwards}>←</button>

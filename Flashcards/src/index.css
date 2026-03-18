@@ -141,3 +141,25 @@ button:focus-visible {
   background: #1d4ed8;
   color: white;
 }
+
+.answer{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.streak{
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.answerInput.correct{
+  border: 2px solid green;
+}
+.answerInput{
+  border: 2px solid grey;
+}
+.answerInput.incorrect{
+  border: 2px solid red;
+}
